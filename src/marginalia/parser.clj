@@ -264,11 +264,11 @@
 
 (defmethod dispatch-form 'deftemplate
   [form raw nspace-sym]
-  [nil raw nspace-syml])
+  [nil raw nspace-sym])
 
 (defmethod dispatch-form 'defsnippet
   [form raw nspace-sym]
-  [nil raw nspace-syml])
+  [nil raw nspace-sym])
 
 (defn dispatch-inner-form
   [form raw nspace-sym]
