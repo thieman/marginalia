@@ -20,12 +20,12 @@
 ;; Extracted from clojure.contrib.reflect
 (defn call-method
   "Calls a private or protected method.
- 
+
    params is a vector of classes which correspond to the arguments to
    the method e
- 
+
    obj is nil for static methods, the instance object otherwise.
- 
+
    The method-name is given a symbol or a keyword (something Named)."
   [klass method-name params obj & args]
   (-> klass (.getDeclaredMethod (name method-name)
@@ -262,6 +262,14 @@
   [form raw nspace-sym]
   [nil raw nspace-sym])
 
+(defmethod dispatch-form 'deftemplate
+  [form raw nspace-sym]
+  [nil raw nspace-syml])
+
+(defmethod dispatch-form 'defsnippet
+  [form raw nspace-sym]
+  [nil raw nspace-syml])
+
 (defn dispatch-inner-form
   [form raw nspace-sym]
   (conj
@@ -283,7 +291,7 @@
 (defn- literal-form? [form]
   (or (string? form) (number? form) (keyword? form) (symbol? form)
       (char? form) (true? form) (false? form) (instance? java.util.regex.Pattern form)))
-  
+
 (defmethod dispatch-form :default
   [form raw nspace-sym]
   (cond (literal-form? form)
